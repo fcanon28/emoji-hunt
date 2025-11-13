@@ -32,12 +32,18 @@ function App() {
 
   function handleDecoyClick() {
     // setRandomDecoyIndex(getRandomNumber(0, 30));
-    setDecoyEmoji(fetchedEmojis[getRandomNumber(0, apiCount)])
+    // WIP: should actually be game over
+    alert("GAME OVER!");
   }
 
   function handleCorrectClick() {
     // setRandomCorrectIndex(getRandomNumber(0, 30));
-    setCorrectEmoji(fetchedEmojis[getRandomNumber(0, apiCount)])
+    let c = getRandomNumber(0, apiCount);
+    let d = getRandomNumber(0, apiCount);
+    if (c == d) c = (c + 1) % 10;
+
+    setDecoyEmoji(fetchedEmojis[d]);
+    setCorrectEmoji(fetchedEmojis[c]);
   }
 
   function getRandomNumber(min, max) {
