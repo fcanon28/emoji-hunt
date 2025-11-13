@@ -12,8 +12,8 @@ export default function TileEmojis({
 
     return (
       <div
-        // className={`tile ${isCorrectTile ? 'correct-tile' : ''}`}
-        className="tile"
+        className={`tile ${isCorrectTile ? 'correct-tile' : ''}`}
+        // className="tile"
         key={i}
         onClick={isCorrectTile ? handleCorrectClick : handleDecoyClick}
       >
