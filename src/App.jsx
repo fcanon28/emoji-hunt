@@ -25,6 +25,17 @@ function App() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  if (loading) {
+    return (
+      <div className="game-body">
+        <div className="spinner-container">
+          <div className="spinner"></div>
+          <p>Loading game...</p>
+        </div>
+      </div>
+    );
+  }
+
   console.log(decoyEmoji[randomDecoyIndex]);
   return (
     <div className="game-body">
