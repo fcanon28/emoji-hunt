@@ -11,7 +11,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [randomDecoyIndex, setRandomDecoyIndex] = useState(0);
   const [randomCorrectIndex, setRandomCorrectIndex] = useState(0);
-  const [correctTileIndex, setCorrectTileIndex] = useState(0)
+  const [correctTileIndex, setCorrectTileIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  // const [scoresRecord, setScoresRecord] = useState([0]);
   const apiCount = 30;
   const tileCount = 4096;
 
@@ -46,7 +48,8 @@ function App() {
 
     setDecoyEmoji(fetchedEmojis[d]);
     setCorrectEmoji(fetchedEmojis[c]);
-    setCorrectTileIndex(getRandomNumber(0, tileCount))
+    setCorrectTileIndex(getRandomNumber(0, tileCount));
+    setScore((prev) => prev + 1);
   }
 
   function getRandomNumber(min, max) {
@@ -74,7 +77,7 @@ function App() {
           <p>Something's wrong! Check back again later...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -83,7 +86,7 @@ function App() {
         <h2>emoji hunt!</h2>
         <div className="timer">00:00</div>
         <div className="score">
-          <p>score: 0</p>
+          <p>score: {score}</p>
           <p>highscore: 0</p>
         </div>
       </div>
