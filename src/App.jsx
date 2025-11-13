@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./styles/App.css";
 import { fetchSmileyEmojis } from "./services/emojiApi";
+import TileEmojis from "./components/TileEmojis";
 
 function App() {
   const [decoyEmoji, setDecoyEmoji] = useState([]);
@@ -43,9 +42,7 @@ function App() {
         </div>
       </div>
 
-      <div className="tiles">
-        {tileEmojis()}
-      </div>
+      <TileEmojis decoyEmoji={decoyEmoji}/>
     </div>
   );
 }
