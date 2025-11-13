@@ -67,6 +67,16 @@ function App() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="game-body">
+        <div className="spinner-container">
+          <p>Something's wrong! Check back again later...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="game-body">
       <div className="header">
