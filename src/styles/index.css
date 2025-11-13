@@ -133,6 +133,10 @@ img {
   }
 }
 
+/* temp */
+.correct-tile {
+  background-color: red;
+}
 
 button {
   border-radius: 8px;

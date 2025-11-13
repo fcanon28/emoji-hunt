@@ -11,7 +11,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [randomDecoyIndex, setRandomDecoyIndex] = useState(0);
   const [randomCorrectIndex, setRandomCorrectIndex] = useState(0);
+  const [correctTileIndex, setCorrectTileIndex] = useState(0)
   const apiCount = 30;
+  const tileCount = 4096;
 
   useEffect(() => {
     setLoading(true);
@@ -44,6 +46,7 @@ function App() {
 
     setDecoyEmoji(fetchedEmojis[d]);
     setCorrectEmoji(fetchedEmojis[c]);
+    setCorrectTileIndex(getRandomNumber(0, tileCount))
   }
 
   function getRandomNumber(min, max) {
@@ -82,6 +85,7 @@ function App() {
         correctEmoji={correctEmoji}
         randomCorrectIndex={randomCorrectIndex}
         handleCorrectClick={handleCorrectClick}
+        correctTileIndex={correctTileIndex}
       />
     </div>
   );
