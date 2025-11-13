@@ -1,16 +1,28 @@
 export default function TileEmojis({
   decoyEmoji,
-  handleCorrectClick,
+  handleDecoyClick,
   randomDecoyIndex,
+  correctEmoji,
+  randomCorrectIndex,
+  handleCorrectClick
 }) {
-  const tiles = Array.from({ length: 4096 }, (_, i) => (
-    <div className="tile" key={i}>
-      <img src={decoyEmoji[randomDecoyIndex]?.image} alt={decoyEmoji[randomDecoyIndex]?.name} />
+  const tiles = Array.from({ length: 4095 }, (_, i) => (
+    <div className="tile" key={i}  onClick={handleDecoyClick}>
+      <img
+        src={decoyEmoji?.image}
+        alt={decoyEmoji?.name}
+      />
     </div>
   ));
 
   return (
-    <div className="tiles" onClick={handleCorrectClick}>
+    <div className="tiles">
+      <div className="tile" onClick={handleCorrectClick}>
+        <img
+          src={correctEmoji?.image}
+          alt={correctEmoji?.name}
+        />
+      </div>
       {tiles}
     </div>
   );

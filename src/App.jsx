@@ -4,26 +4,48 @@ import { fetchSmileyEmojis } from "./services/emojiApi";
 import TileEmojis from "./components/TileEmojis";
 
 function App() {
+  const [fetchedEmojis, setFetchedEmojis] = useState([]);
   const [decoyEmoji, setDecoyEmoji] = useState([]);
+  const [correctEmoji, setCorrectEmoji] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [randomDecoyIndex, setRandomDecoyIndex] = useState(0);
+  const [randomCorrectIndex, setRandomCorrectIndex] = useState(0);
+  const apiCount = 30;
 
   useEffect(() => {
     setLoading(true);
     fetchSmileyEmojis()
-      .then((data) => setDecoyEmoji(data))
+      .then((data) => {
+        setFetchedEmojis(data);
+        let c = getRandomNumber(0, apiCount);
+        let d = getRandomNumber(0, apiCount);
+        if (c == d) c = (c + 1) % 10;
+        setRandomDecoyIndex(d);
+        setRandomCorrectIndex(c);
+        setDecoyEmoji(data[d]);
+        setCorrectEmoji(data[c]);
+      })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
   }, []);
 
+  function handleDecoyClick() {
+    // setRandomDecoyIndex(getRandomNumber(0, 30));
+    setDecoyEmoji(fetchedEmojis[getRandomNumber(0, apiCount)])
+  }
+
   function handleCorrectClick() {
-    setRandomDecoyIndex(getRandomNumber(0, 30));
+    // setRandomCorrectIndex(getRandomNumber(0, 30));
+    setCorrectEmoji(fetchedEmojis[getRandomNumber(0, apiCount)])
   }
 
   function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+  console.log("decoy", decoyEmoji);
+  console.log("correct", correctEmoji);
 
   if (loading) {
     return (
@@ -36,7 +58,6 @@ function App() {
     );
   }
 
-  console.log(decoyEmoji[randomDecoyIndex]);
   return (
     <div className="game-body">
       <div className="header">
@@ -50,8 +71,11 @@ function App() {
 
       <TileEmojis
         decoyEmoji={decoyEmoji}
-        handleCorrectClick={handleCorrectClick}
+        handleDecoyClick={handleDecoyClick}
         randomDecoyIndex={randomDecoyIndex}
+        correctEmoji={correctEmoji}
+        randomCorrectIndex={randomCorrectIndex}
+        handleCorrectClick={handleCorrectClick}
       />
     </div>
   );
