@@ -7,6 +7,7 @@ function App() {
   const [decoyEmoji, setDecoyEmoji] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [randomDecoyIndex, setRandomDecoyIndex] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -16,21 +17,15 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  const tileEmojis = () => {
-    const tiles = [];
-    for (let i = 0; i < 64; i++) {
-      for (let j = 0; j < 64; j++) {
-        tiles.push(
-          <div className="tile" key={`${i}, ${j}`}>
-            <img src={decoyEmoji[0].image} />
-          </div>
-        );
-      }
-    }
-    return tiles;
-  };
+  function handleCorrectClick() {
+    setRandomDecoyIndex(getRandomNumber(0, 30));
+  }
 
-  console.log(decoyEmoji[0]);
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  console.log(decoyEmoji[randomDecoyIndex]);
   return (
     <div className="game-body">
       <div className="header">
@@ -42,7 +37,11 @@ function App() {
         </div>
       </div>
 
-      <TileEmojis decoyEmoji={decoyEmoji}/>
+      <TileEmojis
+        decoyEmoji={decoyEmoji}
+        handleCorrectClick={handleCorrectClick}
+        randomDecoyIndex={randomDecoyIndex}
+      />
     </div>
   );
 }
